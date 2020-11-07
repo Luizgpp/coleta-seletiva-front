@@ -1,0 +1,37 @@
+<div class="container" style="margin-top: 70px;">
+  <h1 *ngIf="this.id === undefined">Adicionar um Ponto de Coleta</h1>
+  <h1 *ngIf="this.id !== undefined">Editar um Ponto de Coleta</h1>
+  <form class="needs-validation" [formGroup]="formAddPontoColeta" (ngSubmit)="adicionarPontosColeta()" novalidate>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="">Nome</label>
+        <input type="text" class="form-control" id="" formControlName="nome" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="">Endereço</label>
+        <input type="text" class="form-control" id="" formControlName="endereco" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="">Latitude</label>
+        <input type="text" class="form-control" id="" formControlName="latitude" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="">Longitude</label>
+        <input type="text" class="form-control" id="" formControlName="longitude" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="">Cidade</label>
+        <select class="custom-select" id="" formControlName="cidade_id" required>
+          <option selected disabled value="">Escolha...</option>
+          <option [ngValue]="cidade.id" *ngFor="let cidade of cidades"> {{ cidade.nome }}</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit" *ngIf="this.id === undefined">Adicionar</button>
+    <button class="btn btn-primary" type="submit" *ngIf="this.id !== undefined">Editar</button>
+  </form>
+</div>
+
+
