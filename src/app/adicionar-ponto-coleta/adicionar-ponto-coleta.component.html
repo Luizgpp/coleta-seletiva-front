@@ -1,6 +1,6 @@
-<div class="container" style="margin-top: 70px;">
-  <h1 *ngIf="this.id === undefined">Adicionar um Ponto de Coleta</h1>
-  <h1 *ngIf="this.id !== undefined">Editar um Ponto de Coleta</h1>
+<div class="container">
+  <h1 *ngIf="this.id === undefined" class="text-center">Novo Ponto de Coleta</h1>
+  <h1 *ngIf="this.id !== undefined" class="text-center">Editar um Ponto de Coleta</h1>
   <form class="needs-validation" [formGroup]="formAddPontoColeta" (ngSubmit)="adicionarPontosColeta()" novalidate>
     <div class="form-row">
       <div class="col-md-6 mb-3">
