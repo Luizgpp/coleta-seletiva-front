@@ -1,3 +1,4 @@
+import { CidadesTable } from './../Models/CidadesTable';
 import { retry, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { PontoColetaTable } from '../Models/PontosColetaTable';
@@ -33,7 +34,13 @@ export class ApiService {
       );
   }
 
-    // Busca todos os pontos de coleta
+  getCidadesByColetaId(id: number): Observable<CidadesTable> {
+    return this.httpClient.get<CidadesTable>(this.pontoColetaApiUrl + '/' + id + '/cidade')
+      .pipe(
+        retry(2)
+      );
+  }
+
   createPontosColeta(pontoColeta: PontoColetaTable ): Observable<PontoColetaTable>{
     return this.httpClient.post<PontoColetaTable>(this.pontoColetaApiUrl, JSON.stringify(pontoColeta), this.httpOptions)
     .pipe(
@@ -53,6 +60,13 @@ export class ApiService {
     return this.httpClient.delete<PontoColetaTable>(this.pontoColetaApiUrl + '/' + pontoColeta.id, this.httpOptions)
       .pipe(
         retry(1)
+      );
+  }
+
+  getPontosColetaByName(name: string): Observable<PontoColetaTable[]> {
+    return this.httpClient.get<PontoColetaTable[]>(this.pontoColetaApiUrl + '/busca/' + name)
+      .pipe(
+        retry(2)
       );
   }
 

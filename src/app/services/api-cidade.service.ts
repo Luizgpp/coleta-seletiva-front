@@ -16,11 +16,28 @@ export class ApiCidadeService {
 
   constructor(private httpClient: HttpClient) { }
 
-    // Busca todos os pontos de coleta
+    // Busca todos os pontos de coleta da cidade
     getCidades(): Observable<CidadesTable[]>{
       return this.httpClient.get<CidadesTable[]>(this.cidadeApiUrl)
       .pipe(
         retry(2)
       );
     }
+
+  // Busca cidade pelo id do potno de coleta
+  getCidadeById(id: number): Observable<CidadesTable> {
+    return this.httpClient.get<CidadesTable>(this.cidadeApiUrl + '/' + id)
+      .pipe(
+        retry(2)
+      );
+  }
+
+  createCidade(cidade: CidadesTable ): Observable<CidadesTable>{
+    return this.httpClient.post<CidadesTable>(this.cidadeApiUrl, JSON.stringify(cidade), this.httpOptions)
+    .pipe(
+      retry(2)
+    );
+  }
+
+
 }

@@ -2,6 +2,7 @@ import { ApiService } from './../services/api.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { PontoColetaTable } from '../Models/PontosColetaTable';
 import { Router } from '@angular/router';
+import { AgmMap, MapsAPILoader } from '@agm/core';
 
 
 @Component({
@@ -13,16 +14,20 @@ export class ListaPontosColetaComponent implements OnInit, AfterViewInit {
     pontoColeta = {} as PontoColetaTable;
     pontosDeColeta: PontoColetaTable[];
 
-    constructor(private apiService: ApiService, private router: Router ) { }
+    latitude = -23.2639628;
+    longitude = -47.3003345;
+
+    constructor(
+      private apiService: ApiService,
+      private router: Router
+      ) { }
 
   ngOnInit(): void {
     this.getColetas();
-    console.log('passou OnInit');
   }
 
   ngAfterViewInit(): void {
     this.getColetas();
-    console.log('passou After View Init');
   }
 
   getColetas(): any{
@@ -39,8 +44,17 @@ export class ListaPontosColetaComponent implements OnInit, AfterViewInit {
   deletePontoColeta(dados: PontoColetaTable): any{
     this.apiService.deletePontosColeta(dados).subscribe(() => {
       this.getColetas();
-      console.log('passou detete');
     });
+  }
+
+  onSubmit(nome: string): any{
+    if (nome !== ''){
+      this.apiService.getPontosColetaByName(nome).subscribe((dados: PontoColetaTable[]) => {
+        this.pontosDeColeta = dados;
+      });
+    }else{
+      this.getColetas();
+    }
   }
 
 }

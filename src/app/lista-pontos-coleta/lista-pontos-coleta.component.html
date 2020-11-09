@@ -1,29 +1,42 @@
-<div class="container">
+<div class="container-fluid">
   <h1 class="text-center">Pontos de Coleta</h1>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nome</th>
-        <th>Endereço</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
-        <th>Cidade</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let dados of pontosDeColeta">
-          <td>{{ dados.id }}</td>
-          <td> {{ dados.nome }}</td>
-          <td> {{ dados.endereco }}</td>
-          <td> {{ dados.latitude }}</td>
-          <td> {{ dados.longitude }}</td>
-          <td> {{ dados.cidade_id }}</td>
-          <td>
-            <button type="button" class="btn btn-warning btn-sm" (click)="editPontoColeta(dados)">Editar</button>
-            <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deletePontoColeta(dados)">Deletar</button>
-          </td>
-      </tr>
-    </tbody>
-  </table>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search" #busca>
+    <button (click)="onSubmit(busca.value)" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+  </form>
+  <hr>
+    <div class="table-responsive">
+    <table class="table table-hover table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Cidade</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dados of pontosDeColeta">
+            <td>{{ dados.id }}</td>
+            <td> {{ dados.nome }}</td>
+            <td> {{ dados.endereco }}</td>
+            <td> {{ dados.latitude }}</td>
+            <td> {{ dados.longitude }}</td>
+            <td> {{ dados.cidade.nome }}</td>
+            <td>
+              <button type="button" class="btn btn-warning btn-sm" (click)="editPontoColeta(dados)">Editar</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deletePontoColeta(dados)">Deletar</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    <agm-map #mapa [latitude]="latitude" [longitude]="longitude" [usePanning]="true" [disableDoubleClickZoom]="true" [zoom]="13">
+      <agm-marker [latitude]="dados.latitude" [longitude]="dados.longitude" [markerDraggable]="false" *ngFor="let dados of pontosDeColeta">
+        <agm-info-window [disableAutoPan]="true"> {{ dados.nome }} </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
 </div>

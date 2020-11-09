@@ -11,6 +11,7 @@ import { ListaPontosColetaComponent } from './lista-pontos-coleta/lista-pontos-c
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -28,7 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDWIrdqNFwG9eVqAwKvE60AhoHAYjraVEE',
+      libraries: ['places']
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

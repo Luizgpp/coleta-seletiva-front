@@ -1,37 +1,65 @@
 <div class="container">
   <h1 *ngIf="this.id === undefined" class="text-center">Novo Ponto de Coleta</h1>
   <h1 *ngIf="this.id !== undefined" class="text-center">Editar um Ponto de Coleta</h1>
-  <form class="needs-validation" [formGroup]="formAddPontoColeta" (ngSubmit)="adicionarPontosColeta()" novalidate>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="">Nome</label>
-        <input type="text" class="form-control" id="" formControlName="nome" required>
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="">Endereço</label>
-        <input type="text" class="form-control" id="" formControlName="endereco" required>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="">Latitude</label>
-        <input type="text" class="form-control" id="" formControlName="latitude" required>
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="">Longitude</label>
-        <input type="text" class="form-control" id="" formControlName="longitude" required>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="">Cidade</label>
-        <select class="custom-select" id="" formControlName="cidade_id" required>
-          <option selected disabled value="">Escolha...</option>
-          <option [ngValue]="cidade.id" *ngFor="let cidade of cidades"> {{ cidade.nome }}</option>
-        </select>
+  <hr>
+  <div class="row justify-content-md-center">
+    <div class="col-md-8">
+      <div class="form-row mb-10 form-group">
+        <input type="text" class="form-control"
+          id="busca"
+          placeholder="Digite um endereço"
+          type="text"
+          #busca
+          nome="busca"
+          [(ngModel)]="pontoColeta.endereco"
+          >
       </div>
     </div>
-    <button class="btn btn-primary" type="submit" *ngIf="this.id === undefined">Adicionar</button>
-    <button class="btn btn-primary" type="submit" *ngIf="this.id !== undefined">Editar</button>
-  </form>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mapa-margin">
+        <agm-map #mapa [latitude]="pontoColeta.latitude" [longitude]="pontoColeta.longitude" [usePanning]="true" [disableDoubleClickZoom]="true" (mapClick)="setMarcador($event)" [zoom]="17">
+          <agm-marker [latitude]="pontoColeta.latitude" [longitude]="pontoColeta.longitude" [markerDraggable]="true" (dragEnd)="setMarcador($event)">
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+    <div class="col-md">
+      <form (ngSubmit)="onSubmit()" #form="ngForm" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" [(ngModel)]="pontoColeta.nome" #nome="ngModel" name="nome" ngModel  required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="endereco">Endereço</label>
+            <input type="text" class="form-control" id="endereco" [(ngModel)]="pontoColeta.endereco" #endereco="ngModel" name="endereco" ngModel readonly required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="cidade">Cidade</label>
+            <input type="text" class="form-control" id="cidade" [(ngModel)]="cidadeModel.nome" #cidade="ngModel" name="cidade" readonly required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="estado">Estado</label>
+            <input type="text" class="form-control" id="estado" [(ngModel)]="cidadeModel.uf"  #estado="ngModel" name="estado" readonly required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="pais">País</label>
+            <input type="text" class="form-control" id="pais" [(ngModel)]="cidadeModel.pais" #pais="ngModel" name="pais" readonly required>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit" *ngIf="this.id === undefined">Adicionar</button>
+        <button class="btn btn-primary" type="submit" *ngIf="this.id !== undefined">Editar</button>
+      </form>
+    </div>
+  </div>
 </div>
 
 
