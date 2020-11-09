@@ -6,22 +6,19 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Este sistema foi proposto para um teste de condidatura para uma empresa.
 
-## Build
+Para o sistema funcionar é necessário utilizar seu modo BackEnd disponivel aqui: https://github.com/Luizgpp/coleta-seletiva
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+No projeto Front-End foi utilizado Angular (https://angular.io) na versão 10.2.2 utilizando também o Angular-Cli (https://cli.angular.io) na versão 10.2.0.
 
-## Running unit tests
+Para o executar o sistema para testes basta baixa-lo e executar ng serve --open onde ele será aberto o uma pagina web no endereço localhost:4200
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Obs: o Sistema só ira rodar se o backend estivar rodando junto.
 
-## Running end-to-end tests
+Para roda o sistema back-end basta baixa-lo ou clonar e executar os seguintes comando:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Digite o commando "composer install". Ele vai instalar todos os pacotes php necessários.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Digite o commando "php artisan key:generate". Esse vai gerar uma chave para sua aplicação. Sem isso o Laravel não vai funcionar
